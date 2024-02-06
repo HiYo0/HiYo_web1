@@ -15,10 +15,13 @@ repositories {
 	mavenCentral()
 }
 
-dependencies {
+dependencies { // 여기에 외부 라이브러리 코드
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	runtimeOnly 'com.mysql:mysql-connector-j' // mysql 라이브러리
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	runtimeOnly 'com.mysql:mysql-connector-j' // mysql 라이브러리 : DB
+	implementation 'org.springframework.boot:spring-boot-starter-mustache' // mustache 라이브러리 : 화면뷰
+
 }
 
 tasks.named('test') {
