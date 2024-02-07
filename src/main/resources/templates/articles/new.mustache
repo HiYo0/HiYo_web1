@@ -1,0 +1,9 @@
+{{>layouts/header}} <!--해더 파일 호출-->
+<!-- layouts 폴더안 header 파일호출 -->
+
+    <form action="/articles/create" method= "post">
+        <input name="title"/> <br/>
+        <textarea name="content"></textarea>
+        <button type="submit">submit</button>
+    </form>
+{{>layouts/footer}} <!--푸터 파일 호출-->

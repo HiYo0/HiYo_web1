@@ -16,11 +16,20 @@ repositories {
 }
 
 dependencies { // 여기에 외부 라이브러리 코드
+	//변경된 이후 새로고침 필수
+	// spring web
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-	runtimeOnly 'com.mysql:mysql-connector-j' // mysql 라이브러리 : DB
-	implementation 'org.springframework.boot:spring-boot-starter-mustache' // mustache 라이브러리 : 화면뷰
+	// mysql 라이브러리 : DB
+	runtimeOnly 'com.mysql:mysql-connector-j'
+
+	// mustache 라이브러리 : 화면뷰
+	implementation 'org.springframework.boot:spring-boot-starter-mustache'
+
+	// lombok 라이브러리 : 코드를 간소화 해주는 라이브러리
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
 
 }
 
