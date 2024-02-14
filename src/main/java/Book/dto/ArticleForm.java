@@ -14,6 +14,7 @@ import lombok.*;
 @Setter             // 컴파일시 Setter() 자동으로 만들어준다.      [롬복]
 public class ArticleForm {
     // 1. 필드
+    private Long id;
     private String title;   // 입력받은 제목 필드
     private String content; // 입력받은 내용 필드
 

@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component // 스프링 컨테이너에 해당 클래스를 빈(객체) 등록
 public class ArticleDao {
@@ -50,6 +52,55 @@ public class ArticleDao {
         }
 
         return false;
+    }//method end
+
+    // ------------ ------------ ------------ //
+    // 2. 개별글 조회 : 매개변수 :조회할 게시물번호(id) | 반환 : 조회한게시물정보 1개(DTO)
+    public ArticleForm show( Long id ){
+        try {
+            String sql = "select * from article where id = ?;";
+            ps = conn.prepareStatement(sql);
+            ps.setLong(1,id);
+            rs = ps.executeQuery();
+            if(rs.next()){ // 1개 게시물을 조회 할 예정이라서 next() 한번처리.
+                ArticleForm form =new ArticleForm(
+                        rs.getLong(1),
+                        rs.getString(2),
+                        rs.getString(3)
+                );
+                return form;
+            }
+
+
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return null;
+    }//method end
+
+    // ------------ ------------ ------------ //
+    // 3. 개별 글 조회 : 매개변수 : X , 리턴타입 : ArrayList
+    public List<ArticleForm> index(){
+        List<ArticleForm> list = new ArrayList<>();
+        try {
+            String sql = "select * from article;";
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()){
+                // 1. 객체 만들기
+                ArticleForm form =new ArticleForm(
+                        rs.getLong(1),
+                        rs.getString(2),
+                        rs.getString(3)
+                );
+                // 2. 객체를 리스트에 넣기
+                list.add(form);
+            }//while end
+            return list;
+        }catch (Exception e){
+            System.out.println("e = " + e);
+        }
+        return list;
     }
 
 }// class end
