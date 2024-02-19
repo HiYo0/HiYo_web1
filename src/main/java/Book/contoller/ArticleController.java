@@ -123,7 +123,7 @@ public class ArticleController {
 
     // p.213 수정 2단계 : 수정 데이터 받아오기
     @PostMapping("/article/update")
-    public String uodate(ArticleForm form){
+    public String update(ArticleForm form){
         // * form 입력 데이터를 Dto 매개변수로 받을때
             // 1. form 입력상자의 name 과 Dto의 필드명 동일
             // 2. Dto의 필드 값을 저장할 생성자 필요
