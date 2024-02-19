@@ -1,0 +1,26 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>승호 마이페이지</title>
+</head>
+<body>
+    {{#mdto}}
+        <form action="/hiyoweb/mypage" method="post">
+            <input name="no" type="hidden" value="{{no}}">
+            <input name="id" type="hidden" value="{{id}}">
+            비밀번호:<input name="pw" value="{{pw}}"><br/>
+            이름:<input name="name" value="{{name}}"/>   <br/>
+            이메일:<input name="email" value="{{email}}"/>   <br/>
+            전화번호:<input name="phone" value="{{phone}}"/>   <br/>
+            이미지파일:<input name="img" value="{{img}}"/>   <br/>
+            <button type="submit">수정하기</button> <br/>
+            <a href="/hiyoweb/{{no}}/delete">회원탈퇴하기</a> <br/>
+            <a href="#">뒤로가기(갈때없음)</a>
+        </form>
+    {{/mdto}}
+
+</body>
+</html>
