@@ -1,5 +1,6 @@
 package hiyoweb.model.dao;
 
+import hiyoweb.model.dto.LoginDto;
 import hiyoweb.model.dto.MemberDto;
 import org.springframework.stereotype.Component;
 
@@ -75,6 +76,36 @@ public class MemberDao {//class start
             if(count ==1){
                 return true;
             }
+        }catch (Exception e){System.out.println(e);}
+        return false;
+    }
+
+    // 회원가입
+    public boolean signup(MemberDto dto){
+        try {
+            String sql = "insert into member value (0,?,?,?,?,?,?);";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1,dto.getId());
+            ps.setString(2,dto.getPw());
+            ps.setString(3,dto.getName());
+            ps.setString(4,dto.getEmail());
+            ps.setString(5,dto.getPhone());
+            ps.setString(6,dto.getImg());
+            int count = ps.executeUpdate();
+            if(count==1){return true;}
+        }catch (Exception e){System.out.println(e);}
+        return false;
+    }
+
+    // 로그인
+    public boolean login(LoginDto dto){
+        try {
+            String sql = "select * from member where id=? and pw = ?;";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, dto.getId());
+            ps.setString(2, dto.getPw());
+            rs = ps.executeQuery();
+            if(rs.next()){return true;}
         }catch (Exception e){System.out.println(e);}
         return false;
     }

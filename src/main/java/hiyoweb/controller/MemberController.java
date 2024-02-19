@@ -28,13 +28,15 @@ public class MemberController {//class start
     // ================ 1. 회원가입 처리 요청 ================ //
     @PostMapping("/hiyoweb/signup") // http://localhost:80/hiyoweb/signup
     @ResponseBody // 응답방식 application/JSON 방식
-    public boolean signup(MemberDto memberDto){
+    public String signup(MemberDto form){
         System.out.println("회원가입 실행됨"); // 실행확인
-        System.out.println("memberDto = " + memberDto);// 매개변수 확인
+        System.out.println("memberDto = " + form);// 매개변수 확인
         // -
-        boolean result = true; // Dao 처리
-
-        return result;
+        boolean result = dao.signup(form); // Dao 처리
+        if(result){
+            return "redirect:/hiyoweb/login";
+        }
+        return "redirect:/hiyoweb/signup";
     }
 
     // ================ 2. 로그인 처리 요청 ================ //
@@ -44,8 +46,9 @@ public class MemberController {//class start
         System.out.println("로그인 실행됨");
         System.out.println("loginDto = " + loginDto);
 
-        boolean result = true; // Dao 처리
-
+        boolean result = dao.login(loginDto); // Dao 처리
+        int num = loginDto.getNo();
+        System.out.println("num = " + num);
         return result;
     }
 

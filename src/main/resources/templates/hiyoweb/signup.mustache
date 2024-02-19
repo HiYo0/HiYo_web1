@@ -7,7 +7,24 @@
     <title>승호 회원가입</title>
 </head>
 <body>
+
     <h3>회원가입 페이지</h3>
+    <div>
+<!--    <form action="/hiyoweb/signup" method="post">-->
+        ID : <input name="id" type="text" id="id"/><br/>
+        PW : <input name="pw" type="text" id="pw"/><br/>
+        이름 : <input name="name" type="text" id="name"/><br/>
+        e-mail : <input name="email" type="text" id="email"/><br/>
+        전화번호 : <input name="phone" type="text" id="phone"/><br/>
+        프로필사진 : <input name="img" type="text" id="img"/>
+        <input type="button" onclick="signup()" value="회원가입" /> <br/>
+<!--    </form>-->
+    </div>
+    <a href="/hiyoweb/login">처음으로(로그인창 갈 예정)</a>
+
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script  src="/js/member.js"></script>
+<!-- {resource/static}-->
 
 </body>
 </html>
