@@ -59,7 +59,7 @@ function login(){
     // 3. 객체를 배열에 저장 --> spring controller 서버 와 통신 ( JQUERY AJAX )
 
     $.ajax({
-       url : '/hiyoweb/login',      // 어디에
+       url : `/hiyoweb/${id}/login`,      // 어디에
        method : 'post',             // 어떻게
        data :  info  ,              // (무엇을)입력받은값 보내기
        success : function ( result ){
