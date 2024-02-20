@@ -48,9 +48,9 @@ public class Day08Dao {//class start
         System.out.println("Day08Dao.read");
         List<Day08Dto> day08Dtos = new ArrayList<>();
         try {
-            String sql = "select * from board";
+            String sql = "select * from board;";
             ps = conn.prepareStatement(sql);
-            ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()){
                 Day08Dto day08Dto = new Day08Dto(
                         rs.getInt(1),
