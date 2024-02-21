@@ -29,12 +29,12 @@ public class Example2 {//class start
         workThreadB.start();
 
         // 3. 5초 뒤에 A작업스레드의 작업을 양보하기
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            System.out.println("e = " + e);
-        }
+        try {Thread.sleep(5000);} catch (InterruptedException e) {System.out.println("e = " + e);}
         workThreadA.work = false;
+
+        // 4. 10 초뒤에 A작업 스레드의 작업을 양보하기
+        try {Thread.sleep(10000);} catch (InterruptedException e) {System.out.println("e = " + e);}
+        workThreadA.work = true;
 
     }//main end
 }//class emd
