@@ -37,16 +37,28 @@ public class Day08controller {//class start
     @PostMapping("_2인과제2/update")
     @ResponseBody
     public boolean update(Day08Dto dto){
-        boolean result = dao.update(dto);
+        System.out.println("dto = " + dto);
+        // 1. 패스워드 검증요청
+        boolean result = dao.confirmpassword(dto.getBno(),dto.getBpassword());
+        if(result){
+            // 2. 수정요청
+            result = dao.update(dto);
+        }
         return result;
     }
 
 
     // 4. 삭제
-    @GetMapping("_2인과제2/delete/{bno}")
+    @GetMapping("_2인과제2/delete/{bno}/{bpassword}")
     @ResponseBody
-    public boolean delete(@PathVariable int bno){
-        boolean result = dao.delete(bno);
+    public boolean delete(@PathVariable int bno ,@PathVariable String bpassword){
+        System.out.println("bno = " + bno);
+
+        // 1. 패스워드 검증요청
+        boolean result = dao.confirmpassword(bno,bpassword);
+        if(result) {
+            result = dao.delete(bno);
+        }
         return result;
     }
 
@@ -56,6 +68,6 @@ public class Day08controller {//class start
 
     @GetMapping("/_2인과제2")
     public String boardIndex(){
-        return "day08board";
+        return "day08board.html";
     }
 }// class end

@@ -72,12 +72,11 @@ public class Day08Dao {//class start
     public boolean update(Day08Dto dto){
         System.out.println("Day08Dao.update");
         try {
-            String sql = "update board set bcontent=?,bwriter=?,bpassword=? where bno=?;";
+            String sql = "update board set bcontent=?,bpassword=? where bno=?;";
             ps = conn.prepareStatement(sql);
             ps.setString(1,dto.getBcontent());
-            ps.setString(2,dto.getBwriter());
-            ps.setString(3,dto.getBpassword());
-            ps.setInt(4,dto.getBno());
+            ps.setString(2,dto.getBpassword());
+            ps.setInt(3,dto.getBno());
             int count = ps.executeUpdate();
             if(count==1){return true;}
         }catch (Exception e){
@@ -95,6 +94,22 @@ public class Day08Dao {//class start
             ps = conn.prepareStatement(sql);
             int count = ps.executeUpdate();
             if(count==1){return true;}
+        }catch (Exception e){
+            System.out.println("e = " + e);
+        }
+        return false;
+    }
+
+    // 5. 게시물 번호에 따른 패스워드 검증
+    public boolean confirmpassword(int bno , String bpassword){
+        System.out.println("Day08Dao.confirmpassword");
+        try {
+            String sql = "select * from board where bno = ? and bpassword = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,bno);
+            ps.setString(2,bpassword);
+            rs = ps.executeQuery();
+            if(rs.next()){return true;}
         }catch (Exception e){
             System.out.println("e = " + e);
         }
