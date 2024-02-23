@@ -1,17 +1,13 @@
-package example.day10._3Svervlet;
+package example.day11._1Survlet;
 
-import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
-
-// 자바 회사 에서 웹개발 위한 HTTP 통신 클래스 : HttpServlet
-// : MVC패턴에서는 주로 controller 역할
-
 // 서블릿 선언 하는 방법
 // 1. 해당 클래스에 HttpServlet 상속받는다.
 // 2. 해당 클래스에 @WebServlet("HTTP식별주소") 어노테이션 주입해서 web.xml 에 등록한다.
@@ -32,53 +28,47 @@ import java.io.IOException;
         -------- 서버가 종료되면 destroy() 실행되면서 안전하게 서블릿 제거
     */
 
-@WebServlet("/team4")
-public class HellowServlet extends HttpServlet {//class start
+@WebServlet("/servlet") // http://localhost/servlet
+public class TestServlet extends HttpServlet {//class start
 
-    // HttpServlet 클래스로부터 상속받으면 다양한 Http 관련 메소드 사용
-    @Override // 1. [ 최초 요청 1번 실행 ]해당 서블릿 객체가(1개)가 생성 되었을때 실행되는 메소드
-    public void init(ServletConfig config) throws ServletException {
-        System.out.println("HellowServlet.init");
-        super.init();
-    }
 
-    @Override // 2. [ 요청마다 실행 ]해당 서블릿 으로부터 HTTP 서비스 실행 되었을때 실행되는 메소드
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("HellowServlet.service");
-        super.service(req, resp);
-    }
-
-    @Override // 3. [ HTTP method 따라 실행 ]서비스 요청중에 HTTP method 방식이 get이면 실행되는 메소드
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("HellowServlet.doGet");
-        resp.setContentType("text/html");
-        resp.getWriter().println("get 메소드실행");
+        System.out.println("TestServlet.doGet");
+        // 요청 객체 : HttpServletRequest
+
+        String id = req.getParameter("id");
+        System.out.println("id = " + id);
+
+        int type = Integer.parseInt(req.getParameter("type"));
+        System.out.println("type = " + type);
+
+        // 응답 객체 : HttpServletResponse
+        // resp.setContentType("text/html"); // 데이터의 타입( 받는 입장에서의 데이터를 사용하는 방법 )
+        resp.setContentType("application/json"); // 데이터의 타입( 받는 입장에서의 데이터를 사용하는 방법 )
+        resp.getWriter().print("{ \"msg\" : \"서블릿이 보내온 메세지\" , \"type\" : \"1\" }");
+        // 자바 데이터를 JSON 데이터 형식 변환
+            // 1. 직접한다  ( 실무에서는 불가능 )
+            // 2. 라이브러리 사용함
+            // 3. 스프링MVC @ResponseBody
+
+
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("HellowServlet.doPost");
+        System.out.println("TestServlet.doPost");
         resp.setContentType("text/html");
-        resp.getWriter().println("Post 메소드실행됨");
-    }
-
-    @Override // 4. [ 서버가 종료될때 1번 실행 ] 해당 서블릿 객체가 삭제 되었을때 실행되는 메소드
-    public void destroy() { // 4. 해당 서블릿 객체가 삭제 되었을때 실행되는 메소드
-        System.out.println("HellowServlet.destroy");
-        super.destroy();
+        resp.getWriter().println("글");
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("HellowServlet.doPut");
-        resp.setContentType("text/html");
-        resp.getWriter().println("Put 메소드 실행");
+        System.out.println("TestServlet.doPut");
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("HellowServlet.doDelete");
-        resp.setContentType("text/html");
-        resp.getWriter().println("delete 메소드 실행");
+        System.out.println("TestServlet.doDelete");
     }
 }//class end
