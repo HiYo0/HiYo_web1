@@ -30,10 +30,10 @@ function signup(){
             method : 'Post',
             data : info,
             success : function (result){
-                alert('회원가입 성공');
                 console.log(result);
                 // 4. 결과
                 if(result){
+                    alert('회원가입 성공');
                     location.href = '/hiyoweb/login';
                 }else{
                     alert('회원가입 실패');
@@ -59,7 +59,7 @@ function login(){
     // 3. 객체를 배열에 저장 --> spring controller 서버 와 통신 ( JQUERY AJAX )
 
     $.ajax({
-       url : `/hiyoweb/${id}/login`,      // 어디에
+       url : `/hiyoweb/login`,      // 어디에
        method : 'post',             // 어떻게
        data :  info  ,              // (무엇을)입력받은값 보내기
        success : function ( result ){
@@ -67,7 +67,8 @@ function login(){
 
             if(result){
                 alert("로그인성공");
-                location.href = '/hiyoweb/home';
+                // JS 페이지 전환
+                location.href = '/'; // 로그인 성공시 메인페이지로
             }
             else{alert("로그인실패")}
        }

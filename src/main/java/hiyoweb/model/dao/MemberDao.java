@@ -47,6 +47,30 @@ public class MemberDao {//class start
         }catch (Exception e){System.out.println(e);}
         return null;
     }
+    // 회원 ID로 회원번호 return 받기.
+    public MemberDto memberNo(LoginDto loginDto){
+        try {
+            String sql ="select * from member where id = "+loginDto.getId()+";";
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                MemberDto memberNo1 = new MemberDto(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7)
+                );
+                return memberNo1;
+
+            }
+
+
+        }catch (Exception e){System.out.println("e = " + e);}
+        return null;
+    }
 
     // 수정된 정보로 저장하기
     public MemberDto mypagefix(MemberDto dto){
@@ -93,7 +117,7 @@ public class MemberDao {//class start
             ps.setString(6,dto.getImg());
             int count = ps.executeUpdate();
             if(count==1){return true;}
-        }catch (Exception e){System.out.println(e);}
+        }catch (Exception e){System.out.println(e);return false;}
         return false;
     }
 
@@ -107,6 +131,19 @@ public class MemberDao {//class start
             rs = ps.executeQuery();
             if(rs.next()){return true;}
         }catch (Exception e){System.out.println(e);}
+        return false;
+    }
+
+    // 중복검사
+    public boolean loginCell(MemberDto memberDto){
+        String sql ="";
+        try {
+            sql = "select * from member where id = "+memberDto.getId()+";";
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if(rs.next()) return true;
+
+        }catch (Exception e){System.out.println("e = " + e);}
         return false;
     }
 
