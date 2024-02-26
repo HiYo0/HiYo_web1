@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>도서관 관리페이지</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<h2>도서 목록</h2>
+<table>
+    <thead>
+    <tr>
+        <th>도서명</th>
+        <th>저자</th>
+        <th>출판사</th>
+        <th>ISBN</th>
+        <th>편집</th>
+    </tr>
+    </thead>
+    <tbody id="book-list">
+    <!-- 여기에 도서 정보가 추가될 것입니다. -->
+    </tbody>
+</table>
+
+<h2>도서 추가</h2>
+<form id="add-book-form">
+    <input type="text" placeholder="도서명" id="title">
+    <input type="text" placeholder="저자" id="author">
+    <input type="text" placeholder="출판사" id="publisher">
+    <input type="text" placeholder="ISBN" id="isbn">
+    <button type="submit">추가</button>
+</form>
+
+<script>
+    // 도서 목록 데이터
+    var books = [
+        { title: "죄와 벌", author: "도스토예프스키", publisher: "출판사A", isbn: "1234567890" },
+        { title: "어린왕자", author: "생텍쥐페리", publisher: "출판사B", isbn: "0987654321" }
+    ];
+
+    // 초기 도서 목록 생성
+    function renderBooks() {
+        var bookList = document.getElementById("book-list");
+        bookList.innerHTML = '';
+        books.forEach(function(book) {
+            var row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${book.title}</td>
+                <td>${book.author}</td>
+                <td>${book.publisher}</td>
+                <td>${book.isbn}</td>
+                <td><button onclick="deleteBook('${book.isbn}')">삭제</button></td>
+            `;
+            bookList.appendChild(row);
+        });
+    }
+    renderBooks();
+
+    // 새로운 도서 추가
+    document.getElementById("add-book-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        var title = document.getElementById("title").value;
+        var author = document.getElementById("author").value;
+        var publisher = document.getElementById("publisher").value;
+        var isbn = document.getElementById("isbn").value;
+        if (title && author && publisher && isbn) {
+            books.push({ title: title, author: author, publisher: publisher, isbn: isbn });
+            renderBooks();
+            document.getElementById("add-book-form").reset();
+        } else {
+            alert("모든 필드를 입력하세요.");
+        }
+    });
+
+    // 도서 삭제
+    function deleteBook(isbn) {
+        books = books.filter(function(book) {
+            return book.isbn !== isbn;
+        });
+        renderBooks();
+    }
+</script>
+</body>
+</html>

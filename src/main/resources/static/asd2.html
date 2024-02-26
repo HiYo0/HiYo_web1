@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>도서 추천</title>
+    <style>
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<h2>관심 있는 주제를 선택하세요:</h2>
+<form id="interest-form">
+    <input type="checkbox" id="technology" name="interest" value="technology">
+    <label for="technology">기술</label><br>
+    <input type="checkbox" id="history" name="interest" value="history">
+    <label for="history">역사</label><br>
+    <input type="checkbox" id="literature" name="interest" value="literature">
+    <label for="literature">문학</label><br>
+    <input type="checkbox" id="science" name="interest" value="science">
+    <label for="science">과학</label><br>
+    <button type="submit">추천 도서 찾기</button>
+</form>
+
+<div id="recommendations">
+    <!-- 추천 도서 목록이 여기에 표시됩니다. -->
+</div>
+
+<script>
+    document.getElementById("interest-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        var selectedInterests = [];
+        var checkboxes = document.getElementsByName("interest");
+        checkboxes.forEach(function(checkbox) {
+            if (checkbox.checked) {
+                selectedInterests.push(checkbox.value);
+            }
+        });
+        if (selectedInterests.length > 0) {
+            var recommendations = getRecommendations(selectedInterests);
+            displayRecommendations(recommendations);
+        } else {
+            alert("적어도 하나 이상의 관심 주제를 선택하세요.");
+        }
+    });
+
+    // 실제로는 이 함수를 백엔드와 통합하여 추천 도서를 받아올 것입니다.
+    function getRecommendations(selectedInterests) {
+        var recommendations = [];
+        // 각 주제에 대한 추천 도서를 백엔드로부터 가져오는 코드
+        // 여기서는 예시로 더미 데이터를 반환합니다.
+        var dummyData = {
+            technology: ["Clean Code", "The Pragmatic Programmer"],
+            history: ["A People's History of the United States", "Sapiens: A Brief History of Humankind"],
+            literature: ["To Kill a Mockingbird", "1984"],
+            science: ["A Brief History of Time", "The Selfish Gene"]
+        };
+        selectedInterests.forEach(function(interest) {
+            recommendations = recommendations.concat(dummyData[interest]);
+        });
+        return recommendations;
+    }
+
+    function displayRecommendations(recommendations) {
+        var recommendationsDiv = document.getElementById("recommendations");
+        recommendationsDiv.innerHTML = "<h2>추천 도서:</h2>";
+        var ul = document.createElement("ul");
+        recommendations.forEach(function(book) {
+            var li = document.createElement("li");
+            li.textContent = book;
+            ul.appendChild(li);
+        });
+        recommendationsDiv.appendChild(ul);
+    }
+</script>
+</body>
+</html>
