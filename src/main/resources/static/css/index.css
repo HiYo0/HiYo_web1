@@ -28,12 +28,13 @@
     font-family: 'Ownglyph_meetme-Rg';
 }
 /* 헤더 로고 이미지 */
-#head_logo > img{
-    width: 50px;
+#headerLogo > img{
+    width: 100px;
 }
 .top_menu{
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 #main_menu{
     display: flex;
@@ -44,7 +45,15 @@
 }
 #login_menu{
     display: flex;
+    align-items: center;
 }
 #login_menu > li{
     margin: 0 10px;
+}
+#login_menu > li >img{
+    width: 50px;
+    border-radius: 10px;
+}
+#preimg{
+    width: 100px;
 }

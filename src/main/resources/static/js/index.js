@@ -13,12 +13,22 @@ $.ajax({
         let login_menu = document.querySelector('#login_menu');
         let html = ``;
         if(result != ''){//로그인 했을때
+            $.ajax({
+                url : "/hiyoweb/login/info",
+                method :"get",
+                data : {id:result},
+                async : false, // 응답이 오기전까지 대기 상태
+                success : function(result2){
+                    console.log(result2);
 
-            // 2. 무었을
-             html = `<li class="nav-item">   <a class="nav-link" onclick="logout()">로그아웃</a></li>
-                        <li class="nav-item">   <a class="nav-link" href="#">마이페이지</a></li>
-                        <li class="nav-item"> <img src='#'/> ${result} 님</li>
-                        `;
+
+                    // 2. 무었을
+                     html = `<li class="nav-item">   <a class="nav-link" onclick="logout()">로그아웃</a></li>
+                                <li class="nav-item">   <a class="nav-link" href="#">마이페이지</a></li>
+                                <li class="nav-item"> <img src="/img/${result2.uuidFile}"/> ${result} 님</li>
+                                `;
+                }
+            });
 
         }else{// 로그인 안했을때
              html = `<li class="nav-item">   <a class="nav-link" href="/hiyoweb/login">로그인</a></li>
@@ -44,3 +54,4 @@ function logout(){
         }
     })
 }
+

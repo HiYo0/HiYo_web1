@@ -33,36 +33,38 @@ public class MemberDao {//class start
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             if(rs.next()){
-                MemberDto memberDto = new MemberDto(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getString(6),
-                        rs.getString(7)
-                );
+                MemberDto memberDto = new MemberDto();
+                        memberDto.setNo(rs.getInt(1));
+                        memberDto.setId(rs.getString(2));
+                        memberDto.setPw(rs.getString(3));
+                        memberDto.setName(rs.getString(4));
+                        memberDto.setEmail(rs.getString(5));
+                        memberDto.setPhone(rs.getString(6));
+                        memberDto.setUuidFile(rs.getString(7));
+
                 return memberDto;
             }
         }catch (Exception e){System.out.println(e);}
         return null;
     }
-    // 회원 ID로 회원번호 return 받기.
+    // 회원 ID로 회원정보 return 받기.
     public MemberDto memberNo(LoginDto loginDto){
+        System.out.println("loginDto 정보받기 = " + loginDto);
         try {
-            String sql ="select * from member where id = "+loginDto.getId()+";";
+            String sql ="select * from member where id = ?;";
             ps = conn.prepareStatement(sql);
+            ps.setString(1,loginDto.getId());
             rs = ps.executeQuery();
             if(rs.next()){
-                MemberDto memberNo1 = new MemberDto(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getString(6),
-                        rs.getString(7)
-                );
+                MemberDto memberNo1 = new MemberDto();
+                    memberNo1.setNo(rs.getInt(1));
+                    memberNo1.setId(rs.getString(2));
+                    memberNo1.setPw(rs.getString(3));
+                    memberNo1.setName(rs.getString(4));
+                    memberNo1.setEmail(rs.getString(5));
+                    memberNo1.setPhone(rs.getString(6));
+                    memberNo1.setUuidFile(rs.getString(7));
+
                 return memberNo1;
 
             }
@@ -81,7 +83,7 @@ public class MemberDao {//class start
             ps.setString(2,dto.getName());
             ps.setString(3,dto.getEmail());
             ps.setString(4,dto.getPhone());
-            ps.setString(5,dto.getImg());
+            ps.setString(5,dto.getUuidFile());
             ps.setInt(6,dto.getNo());
             int count = ps.executeUpdate();
             if(count ==1){
@@ -114,7 +116,7 @@ public class MemberDao {//class start
             ps.setString(3,dto.getName());
             ps.setString(4,dto.getEmail());
             ps.setString(5,dto.getPhone());
-            ps.setString(6,dto.getImg());
+            ps.setString(6,dto.getUuidFile());
             int count = ps.executeUpdate();
             if(count==1){return true;}
         }catch (Exception e){System.out.println(e);return false;}
@@ -123,11 +125,12 @@ public class MemberDao {//class start
 
     // 로그인
     public boolean login(LoginDto dto){
+        System.out.println("DAO 처리 dto = " + dto);
         try {
-            String sql = "select * from member where id=? and pw = ?;";
+            String sql = "select * from member where id = '"+dto.getId()+"' and pw = '"+dto.getPw()+"';";
             ps = conn.prepareStatement(sql);
-            ps.setString(1, dto.getId());
-            ps.setString(2, dto.getPw());
+//            ps.setString(1, dto.getId());
+//            ps.setString(2, dto.getPw());
             rs = ps.executeQuery();
             if(rs.next()){return true;}
         }catch (Exception e){System.out.println(e);}

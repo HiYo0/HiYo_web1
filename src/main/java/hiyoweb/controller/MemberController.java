@@ -3,6 +3,7 @@ package hiyoweb.controller;
 import hiyoweb.model.dao.MemberDao;
 import hiyoweb.model.dto.LoginDto;
 import hiyoweb.model.dto.MemberDto;
+import hiyoweb.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jdk.jfr.Frequency;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +13,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.util.UUID;
 
 @Controller
 public class MemberController {//class start
 
 
     @Autowired
-    MemberDao dao;
+    private MemberDao dao;
     @Autowired
     private HttpServletRequest request;
+    @Autowired
+    private MemberService memberService;
 
     // 1단계. view <-----> controller 사이의 HTTP 통신 방식 설계
     // 2단계. Controller mapping 체크 ( API Tester )
@@ -34,9 +41,8 @@ public class MemberController {//class start
     @ResponseBody // 응답방식 application/JSON 방식
     public boolean signup(MemberDto form){
         System.out.println("회원가입 실행됨"); // 실행확인
-        System.out.println("memberDto = " + form);// 매개변수 확인
 
-        return dao.signup(form); // Dao 처리
+        return memberService.Signup(form); // Dao 처리
     }//function end
 
 
@@ -48,8 +54,7 @@ public class MemberController {//class start
         System.out.println("loginDto = " + loginDto);
 
         boolean result = dao.login(loginDto); // Dao 처리
-        int num = loginDto.getNo();
-        System.out.println("num = " + num);
+        System.out.println("로그인처리 여부 = " + result);
         // * 로그인 성공시
 
         // 세션 저장소 : 톰켓서버에 *브라우저 마다의 메모리 할당
@@ -62,6 +67,7 @@ public class MemberController {//class start
         MemberDto loginNo = null;
         if(result){loginNo = dao.memberNo(loginDto);}
         if(result){request.getSession().setAttribute("loginDto",loginNo.getId());}
+
         //
         return result;
     }
@@ -97,15 +103,26 @@ public class MemberController {//class start
         // 로그아웃 성공시 => 메인페이지 또는 로그인페이지
     }
 
+    // ================ 3. 회원정보 요청(호그인된 회원 요청 , 페스워드 제외) ================ //
+    @GetMapping("/hiyoweb/login/info")
+    @ResponseBody
+    public MemberDto doGetLoginInfo(LoginDto loginDto){
 
-    // ================ 3. 회원가입 페이지 요청 ================ //
+        System.out.println("loginDto2 = " + loginDto);
+        MemberDto result = memberService.doGetLoginInfo(loginDto);
+        System.out.println("result2 = " + result);
+
+        return result;
+    }
+
+    // ================ 4. 회원가입 페이지 요청 ================ //
     @GetMapping("/hiyoweb/signup")
     public String viewSignup(){
         System.out.println("페이지요청 실행됨");
         return "/hiyoweb/signup";
     }
 
-    // ================ 4. 로그인 페이지 요청 ================ //
+    // ================ 5. 로그인 페이지 요청 ================ //
     @GetMapping("/hiyoweb/login")
     public String doPostLogin(MemberDto memberDto){
         System.out.println("로그인페이지 요청");
