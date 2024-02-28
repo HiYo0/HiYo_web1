@@ -177,6 +177,7 @@ function emailcheck(){
     document.querySelector('.emailcheckbox').innerHTML = msg;
 }// function emailcheck End
 
+// ======================== 유효성검사 끝 ===================== //
 
 
 // 1. 회원가입

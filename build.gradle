@@ -31,6 +31,9 @@ dependencies { // 여기에 외부 라이브러리 코드
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
+	// email sender : SMTP 라이브러리
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
 }
 
 tasks.named('test') {
