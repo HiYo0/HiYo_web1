@@ -46,9 +46,9 @@ public class EmailService {//class start
             // 2. 메세지 보내는 사람
             mimeMessageHelper.setFrom("tmdgh034@naver.com"); // 관리자 이메일
             // 3. 메시지 받는 사람
-            mimeMessageHelper.setTo("itdanja@kakao.com"); // 클라이언트(회원) 이메일 (매개변수)
+            mimeMessageHelper.setTo("tmdgh0304@gmail.com"); // 클라이언트(회원) 이메일 (매개변수)
             // 4. 메세지 제목
-            mimeMessageHelper.setSubject("자바에서 보내온 메세지(승호)"); // ( 매개변수 )
+            mimeMessageHelper.setSubject("자바에서 보내온 메세지(전승호)"); // ( 매개변수 )
             // 5. 메일 내용
             mimeMessageHelper.setText("안녕하세요~ 내용"); // ( 매개변수 )
             // 메일전송
