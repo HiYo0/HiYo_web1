@@ -137,12 +137,12 @@ public class MemberDao {//class start
         return false;
     }
 
-    // 중복검사
-    public boolean loginCell(MemberDto memberDto){
-        String sql ="";
+    // 중복검사 True = 중복있음
+    public boolean doGetFindIdCheck(String id){
         try {
-            sql = "select * from member where id = "+memberDto.getId()+";";
+            String sql = "select * from member where id = ?;";
             ps = conn.prepareStatement(sql);
+            ps.setString(1,id);
             rs = ps.executeQuery();
             if(rs.next()) return true;
 

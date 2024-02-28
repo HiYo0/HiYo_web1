@@ -9,10 +9,7 @@ import jdk.jfr.Frequency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -103,7 +100,7 @@ public class MemberController {//class start
         // 로그아웃 성공시 => 메인페이지 또는 로그인페이지
     }
 
-    // ================ 3. 회원정보 요청(호그인된 회원 요청 , 페스워드 제외) ================ //
+    // ================ 3. 회원정보 요청(로그인된 회원 요청 , 페스워드 제외) ================ //
     @GetMapping("/hiyoweb/login/info")
     @ResponseBody
     public MemberDto doGetLoginInfo(LoginDto loginDto){
@@ -120,6 +117,14 @@ public class MemberController {//class start
     public String viewSignup(){
         System.out.println("페이지요청 실행됨");
         return "/hiyoweb/signup";
+    }
+    // ================ 4. 아이디 중복체크 요청 ================ //
+    @GetMapping("/hiyoweb/find/idcheck")
+    @ResponseBody
+    public boolean doGetFindIdCheck(@RequestParam String id){
+        System.out.println("id = " + id);
+        System.out.println(memberService.doGetFindIdCheck(id));
+        return memberService.doGetFindIdCheck(id);//True = 중복있음
     }
 
     // ================ 5. 로그인 페이지 요청 ================ //

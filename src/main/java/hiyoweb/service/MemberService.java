@@ -5,6 +5,7 @@ import hiyoweb.model.dto.LoginDto;
 import hiyoweb.model.dto.MemberDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 public class MemberService {
@@ -46,6 +47,11 @@ public class MemberService {
         MemberDto result =memberDao.memberNo(loginDto);
 
         return result;
+    }
+
+    // ================ 4. 아이디 중복체크 요청 ================ //
+    public boolean doGetFindIdCheck(String id){//True = 중복있음
+        return memberDao.doGetFindIdCheck(id);
     }
 
 }//class end
