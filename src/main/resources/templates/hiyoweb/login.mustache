@@ -1,12 +1,24 @@
 {{>hiyoweb/header}}
 
-    <h3>로그인 페이지</h3>
-    <div>
+    <div class="loginForm">
+        <h3>로그인 페이지</h3>
         <!--    <form action="/hiyoweb/signup" method="post">-->
-        ID : <input name="id" type="text" id="id"/><br/>
-        PW : <input name="pw" type="text" id="pw"/><br/>
-        <input type="button" onclick="login()" value="로그인" />
-        <a href="/hiyoweb/signup">회원가입</a>
+        <div class="idInputBox">
+            <div>ID : </div>
+            <div><input name="id" type="text" id="id"/></div>
+        </div>
+        
+        <div class="pwInputBox">
+            <div>PW : </div><input name="pw" type="text" id="pw"/>
+        </div>
+        
+        <div class="loginBox">
+            <input id="loginBtn"type="button" onclick="login()" value="로그인" />
+        </div>
+
+        <div class="signupbox">
+            <a href="/hiyoweb/signup"><button id="signupBtn">회원가입</button></a>
+        </div>
         <!--    </form>-->
     </div>
 

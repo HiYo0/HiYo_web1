@@ -199,7 +199,7 @@ function authreq(){
     $.ajax({
         url : "/auth/email/req",
         method : "get",
-        data :{"email" : document.querySelector('.email').value},
+        data :{"email" : document.querySelector('#email').value},
         success : (r)=>{
             document.querySelector('.emailcheckbox').innerHTML = `인증번호를 입력해주세요`;
             // 4. 타이머 함수 실행
@@ -249,19 +249,19 @@ function ontimer(){// 테스트
 }// function ontimer END
 // 11. 인증함수
 function auth(){
-    
+    console.log("인증함수 실행됨");
     // 1. 입력한 인증번호 가져오기
     let ecodeinput = document.querySelector('.ecodeinput').value;
-
+    console.log(ecodeinput);
     // ===내가 입력한 인증번호를 자바에게 보내기== //
-    let result = true;
     
     // 3. 성공시 / 실패시
     $.ajax({
         url : "/auth/email/check",
         method : "get",
+        data : {"ecodeinput" : ecodeinput},
         success : (r)=>{
-            if(result){
+            if(r){
                 checkArray[4] = true;
                 clearInterval( timerInter ); // 인터벌 종료
                 authbox.innerHTML = ``;     // 인증 구역 없애기

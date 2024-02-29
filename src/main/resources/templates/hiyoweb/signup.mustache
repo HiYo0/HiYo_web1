@@ -1,8 +1,10 @@
 {{>hiyoweb/header}}
-
-    <h3>회원가입 페이지</h3>
     <form class="signUpForm">
 <!--    <form action="/hiyoweb/signup" method="post">-->
+
+        <h3>회원가입 페이지</h3>
+        <p> 회원가입을 통해 다양한 이벤트에 참여하세요.</p>
+
         <div> 아이디 </div>
             <input onkeyup="idCheck()" name="id" type="text" id="id"/>
         <div class="idcheckbox"> 유효성검사결과 </div><br/>
@@ -35,12 +37,12 @@
         <!-- onChangeImg = 이미지 변경될때마다 ( this = 현재 input ) -->
         <input onchange="onChangeImg(this)" name="img" type="file" id="img"/><br/>
 
-        <div><!-- 첨부파일 미리보기 추가할 위치 ID preimg 의 src 에 추가 -->
+        <div class="preimgbox"><!-- 첨부파일 미리보기 추가할 위치 ID preimg 의 src 에 추가 -->
             <img id="preimg" src="/img/이젠고양이.png"/>
         </div>
         <br/>
 
-        <input type="button" onclick="signup()" value="회원가입"/> <br/>
+        <button type="button" onclick="signup()" id="signupbtn">회원가입</button> <br/>
 <!--    </form>-->
     </form>
     <a href="/hiyoweb/login">처음으로(로그인창 갈 예정)</a>

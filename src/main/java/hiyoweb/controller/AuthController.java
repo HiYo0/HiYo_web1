@@ -51,9 +51,9 @@ public class AuthController {//class start
 
     // 2. Email 인중확인
     @GetMapping("/email/check")
-    public boolean getEmailCheck(@RequestParam String ecodinput){
+    public boolean getEmailCheck(@RequestParam String ecodeinput){
         System.out.println("AuthController.getEmailCheck");
-        System.out.println("ecodinput = " + ecodinput);
+        System.out.println("ecodinput = " + ecodeinput);
         
         // 1. HTTP세션에 보관했던 인증코드를 꺼내서
             // 1. 세션 속성 호출
@@ -62,7 +62,7 @@ public class AuthController {//class start
         if(object != null){
             String ecode = (String)object; // 강제 타입변환
             // 3. 발급된 인증코드와 입력받은 인증코드와 같으면
-            if(ecode.equals(ecodinput)){
+            if(ecode.equals(ecodeinput)){
                 return true;
             }
         }
