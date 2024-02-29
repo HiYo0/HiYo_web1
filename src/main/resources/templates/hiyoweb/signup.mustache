@@ -18,7 +18,13 @@
         <div class="namecheckbox"> 유효성검사결과 </div>
 
         <div> e-mail </div>
-        <input onkeyup="emailcheck()" name="email" type="text" id="email"/>
+        <div class="emailbox">
+            <input onkeyup="emailcheck()" name="email" type="text" id="email"/>
+            <button type="button" class="authreqbtn" onclick= "authreq()" disabled >인증요청</button>
+        </div>
+        <div class="authbox">
+            <!-- 인증번호 입력창 출력 부분 -->
+        </div>
         <div class="emailcheckbox"> 유효성검사결과 </div>
 
         <div> 전화번호 </div>
