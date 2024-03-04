@@ -62,7 +62,7 @@ public class MemberController {//class start
         // -  Http세션 데이터 호출.    .getAttribute( "세션속성명" );        -- 강제형변환 ( 부모 --> 자식 ) / 캐스팅
         // -  Http세션 데이터 초기화.  .invalidate()
         MemberDto loginNo = null;
-        if(result){loginNo = dao.memberNo(loginDto);}
+        if(result){loginNo = dao.memberNo(loginDto.getId());}
         if(result){request.getSession().setAttribute("loginDto",loginNo.getId());}
 
         //
@@ -106,7 +106,7 @@ public class MemberController {//class start
     public MemberDto doGetLoginInfo(LoginDto loginDto){
 
         System.out.println("loginDto2 = " + loginDto);
-        MemberDto result = memberService.doGetLoginInfo(loginDto);
+        MemberDto result = memberService.doGetLoginInfo(loginDto.getId());
         System.out.println("result2 = " + result);
 
         return result;

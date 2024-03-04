@@ -10,22 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 @Component
-public class MemberDao {//class start
-    // ---------- JDBC DB연동 ----------//
-    private Connection conn;
-    private PreparedStatement ps;
-    private ResultSet rs;
-    public MemberDao(){
-        try {
-            // 1. mysql JDBC 호출 ( 각 회사별  상이 , 라이브러리 다운로드 )
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            // 2. 해당 db서버의 주소와 db연동
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hiyowep", "root", "1234");
-            System.out.println("DB됨");
-        }catch (Exception e ){   System.out.println(e); }
-    }
-
-
+public class MemberDao extends Dao{//class start
     // 식별번호 로 유저정보 가져오기
     public MemberDto uesr(int no){
         try {
@@ -48,12 +33,12 @@ public class MemberDao {//class start
         return null;
     }
     // 회원 ID로 회원정보 return 받기.
-    public MemberDto memberNo(LoginDto loginDto){
-        System.out.println("loginDto 정보받기 = " + loginDto);
+    public MemberDto memberNo(String id){
+        System.out.println("loginDto 정보받기 = " + id);
         try {
             String sql ="select * from member where id = ?;";
             ps = conn.prepareStatement(sql);
-            ps.setString(1,loginDto.getId());
+            ps.setString(1,id);
             rs = ps.executeQuery();
             if(rs.next()){
                 MemberDto memberNo1 = new MemberDto();

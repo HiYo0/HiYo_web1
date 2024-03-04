@@ -12,7 +12,7 @@ public class FileService {//class start
     // Controller : 중계자 역활 ( HTTP매핑 , HTTP요청/응답 , 데이터유효성검사 )등등
     // Service : Controller <-- Service(비지니스로직) --> Dao , Controller <--> Service
 
-    // 어디에( PATH ) 누구를(파일객체)
+    // 어디에( PATH ) 누구를(파일객체) // 등록위치
     String uploadPath = "C:\\Users\\504\\Desktop\\HiYo_web1\\build\\resources\\main\\static\\img\\";
 
     // 1. 업로드 메소드

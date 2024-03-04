@@ -50,9 +50,9 @@ public class MemberService {
     // 2. 로그인 서비스
 
     // 3. id 로 회원정보 요청 서비스
-    public MemberDto doGetLoginInfo(LoginDto loginDto){
+    public MemberDto doGetLoginInfo(String id){
 
-        MemberDto result =memberDao.memberNo(loginDto);
+        MemberDto result =memberDao.memberNo(id);
 
         return result;
     }
