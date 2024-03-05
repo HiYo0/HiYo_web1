@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class BoardDao extends Dao {
@@ -31,6 +33,53 @@ public class BoardDao extends Dao {
     }
 
     // 2. 전체 글 출력 호출    Get     /board.do             X , 페이징처리 , 검색
+    public List<BoardDto> doGetBoardViewList(int startRow, int pageBoardSize ) {
+        System.out.println("BoardDao.doGetBoardViewList");
+        List<BoardDto> list = new ArrayList<>();
+        BoardDto boardDto = null;
+        try {
+            String sql = "select * from board b inner join member m " +
+                    "on b.mno = m.no " +
+                    "order by b.bdate desc " +
+                    "limit ?,?;";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,startRow);
+            ps.setInt(2,pageBoardSize);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                boardDto = new BoardDto(
+                        rs.getLong("bno"),
+                        rs.getString("btitle"),
+                        rs.getString("bcontent"),
+                        rs.getString("bfile"),
+                        rs.getLong("bview"),
+                        rs.getString("bdate"),
+                        rs.getLong("mno"),
+                        rs.getLong("bcno"),
+                        null,
+                        rs.getString("id"),
+                        rs.getString("img")
+                );
+                list.add(boardDto);
+
+            }// while end
+            return list;
+        }catch(Exception e) {System.out.println("e = " + e);}
+
+        return list;
+
+    }// method end
+    // 2-2. 현재 전체 게시물 수 호출
+    public int getBoardSize(){
+        try {
+            String sql = "select count(*) from board;";
+            ps=conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if(rs.next()){return rs.getInt(1);}
+
+        }catch (Exception e){System.out.println("e = " + e);}
+        return 0;
+    }
 
 
     // 3. 개별 글 출력 호출    Get     /board/view.do        게시물 번호
@@ -39,7 +88,7 @@ public class BoardDao extends Dao {
         System.out.println("bno = " + bno);
         BoardDto boardDto = null;
         try {
-            String sql = "select * from board where bno = ?;";
+            String sql = "select * from board b inner join member m on b.mno = m.no where b.bno = ?;";
             ps= conn.prepareStatement(sql);
             ps.setLong(1,bno);
             rs = ps.executeQuery();
@@ -53,12 +102,15 @@ public class BoardDao extends Dao {
                         rs.getString("bdate"),
                         rs.getLong("mno"),
                         rs.getLong("bcno"),
-                        null
+                        null,
+                        rs.getString("id"),
+                        rs.getString("img")
                 );
             }
         }catch (Exception e){
             System.out.println("e = " + e);
         }
+        System.out.println("DAO에서 boardDto = " + boardDto);
 
         return boardDto;
     }

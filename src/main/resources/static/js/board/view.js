@@ -22,7 +22,7 @@ function onView(){
             
             document.querySelector('.btitle').innerHTML = result.btitle;
             document.querySelector('.bcontent').innerHTML = result.bcontent;
-            document.querySelector('.mno').innerHTML = result.mno;
+            document.querySelector('.mno').innerHTML = result.mid;
             document.querySelector('.bdate').innerHTML = result.bdate;
             document.querySelector('.bview').innerHTML = result.bview;
 

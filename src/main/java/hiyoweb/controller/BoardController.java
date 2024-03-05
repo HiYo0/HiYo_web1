@@ -1,12 +1,15 @@
 package hiyoweb.controller;
 
 import hiyoweb.model.dto.BoardDto;
+import hiyoweb.model.dto.BoardPageDto;
 import hiyoweb.service.BoardService;
 import hiyoweb.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/board")
@@ -39,7 +42,14 @@ public class BoardController {//class start
         return boardService.doPostBoardWrite(boardDto);
     }
 
-    // 2. 전체 글 출력 호출    Get     /board.do             X , 페이징처리 , 검색
+    // 2. 전체 글 출력 호출    Get     /board/do       현재페이지 , 페이징처리 , 검색
+    @GetMapping("/do")
+    @ResponseBody
+    public BoardPageDto doGetBoardViewList(int page){
+        System.out.println("BoardController.doGetBoardViewList");
+
+        return boardService.doGetBoardViewList(page);
+    }
 
     // 3. 개별 글 출력 호출    Get     /board/view.do        게시물 번호
     @GetMapping("/view.do")
