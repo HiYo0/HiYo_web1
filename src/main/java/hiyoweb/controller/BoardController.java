@@ -44,11 +44,13 @@ public class BoardController {//class start
 
     // 2. 전체 글 출력 호출    Get     /board/do       현재페이지 , 페이징처리 , 검색
     @GetMapping("/do")
-    @ResponseBody
-    public BoardPageDto doGetBoardViewList(int page){
+    @ResponseBody                           // 쿼리 스트링
+    public BoardPageDto doGetBoardViewList(@RequestParam int page
+            , @RequestParam int pageBoardSize, @RequestParam int bcno
+            , @RequestParam String key,@RequestParam String keyword){
         System.out.println("BoardController.doGetBoardViewList");
 
-        return boardService.doGetBoardViewList(page);
+        return boardService.doGetBoardViewList(page , pageBoardSize ,bcno , key,keyword);
     }
 
     // 3. 개별 글 출력 호출    Get     /board/view.do        게시물 번호
@@ -56,6 +58,7 @@ public class BoardController {//class start
     @ResponseBody
     public BoardDto doGetBoardView( @RequestParam int bno){
         System.out.println("BoardController.doGetBoardView");
+
         return boardService.doGetBoardView(bno);
     }
 

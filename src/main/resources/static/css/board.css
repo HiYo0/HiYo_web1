@@ -1,0 +1,38 @@
+
+
+#linkWrite{display: flex; justify-content: end;}
+
+
+#boardTop{display: flex; justify-content: space-between;}
+
+#categoryFont{color: black; font-size: 25px; margin-left: 30px;}
+.category_line{border-left: 2px solid black;margin: 0px 25px;}
+
+
+
+#SearchBox{display: flex; justify-content: center; margin: 25px;}
+#searchQ{
+    height: 40px;margin: 0 10px; width: 100px;
+    border: 1px solid #198754;
+    color: #198754;
+    border-radius: 5px;
+}
+
+
+.table-info {
+    --bs-table-bg: #198754;    
+}
+
+.page-link {color: #198754;}
+.active>.page-link, .page-link.active{
+    background-color: #198754;
+    border-color: #198754;
+}
+.clickCategory{
+    background-color: #19875491;
+    color: white;
+    border-radius: 5px;
+}
+.pageBoardSize{border: 1px solid #198754;
+    color: #198754;
+    border-radius: 5px;}

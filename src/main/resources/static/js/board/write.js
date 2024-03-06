@@ -36,7 +36,7 @@ function onWrite(){
                 alert('글쓰기 실패 : 관리자에게 문의(첨부파일 오류)');
             }else if(response ==-2){
                 alert('로그인 세션이 존재하지 않습니다.(잘못된접근)');
-                location.href = '/voard/view?bno='+response;
+                location.href = '/board/view?bno='+response;
             }else if(response>=1){
                 alert('글쓰기 성공');
                 location.href='/board/view?bno='+response;

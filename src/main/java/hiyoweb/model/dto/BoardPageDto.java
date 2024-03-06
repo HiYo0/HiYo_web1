@@ -3,7 +3,8 @@ package hiyoweb.model.dto;
 import lombok.*;
 
 import java.util.List;
-@AllArgsConstructor@NoArgsConstructor@Getter@Setter@ToString@Builder
+@AllArgsConstructor@NoArgsConstructor@Getter@Setter@ToString
+@Builder // 생성자 단점을 보완한 라이브러리 함수 제공.
 public class BoardPageDto {//class start
     // 부가정보 //
     // 1. 현재페이지 :
@@ -15,6 +16,8 @@ public class BoardPageDto {//class start
     private int startBtn;
     // 4. 페이지버튼의 끝번호
     private int endBtn;
+    // 5. 총 게시물수
+    private int totalBoardSize;
 
 
     // 실제 내용 //

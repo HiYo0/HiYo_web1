@@ -32,16 +32,21 @@ public class BoardDao extends Dao {
         return 0;
     }
 
-    // 2. 전체 글 출력 호출    Get     /board.do             X , 페이징처리 , 검색
-    public List<BoardDto> doGetBoardViewList(int startRow, int pageBoardSize ) {
+    // 2-1. 전체 글 출력 호출    Get     /board.do             X , 페이징처리 , 검색
+    public List<BoardDto> doGetBoardViewList(int startRow, int pageBoardSize ,int bcno, String key , String keyword) {
         System.out.println("BoardDao.doGetBoardViewList");
         List<BoardDto> list = new ArrayList<>();
         BoardDto boardDto = null;
         try {
-            String sql = "select * from board b inner join member m " +
-                    "on b.mno = m.no " +
-                    "order by b.bdate desc " +
-                    "limit ?,?;";
+            // sql 앞부분
+            String sql = "select * from board b inner join member m on b.mno = m.no";
+            // sql 중간부분
+            if(bcno>0){sql += " where bcno="+bcno;}
+            if(!keyword.isEmpty()){
+                sql += bcno>0?" and ":" where "+key+" like '%"+keyword+"%'";
+            }
+            // sql 뒷부분
+            sql += " order by b.bdate desc limit ?,?";
             ps = conn.prepareStatement(sql);
             ps.setInt(1,startRow);
             ps.setInt(2,pageBoardSize);
@@ -70,9 +75,18 @@ public class BoardDao extends Dao {
 
     }// method end
     // 2-2. 현재 전체 게시물 수 호출
-    public int getBoardSize(){
+    public int getBoardSize( int bcno , String key , String keyword ){
+        System.out.println("DAO 입력받은거 bcno = " + bcno + ", key = " + key + ", keyword = " + keyword);
         try {
-            String sql = "select count(*) from board;";
+            String sql = "select count(*) from board b inner join member m on b.mno = m.no ";
+
+            // 총레코드 수
+            if(bcno>0){sql+=" where bcno="+bcno;}
+            if(!keyword.isEmpty()){
+                System.out.println("검색키워드 존재함!");
+                sql += bcno>0?" and ":" where "+key+" like '%"+keyword+"%'";
+            }
+
             ps=conn.prepareStatement(sql);
             rs = ps.executeQuery();
             if(rs.next()){return rs.getInt(1);}
@@ -82,7 +96,7 @@ public class BoardDao extends Dao {
     }
 
 
-    // 3. 개별 글 출력 호출    Get     /board/view.do        게시물 번호
+    // 3-1. 개별 글 출력 호출    Get     /board/view.do        게시물 번호
     public BoardDto doGetBoardView(int bno){
         System.out.println("BoardDao.doGetBoardView");
         System.out.println("bno = " + bno);
@@ -114,6 +128,16 @@ public class BoardDao extends Dao {
 
         return boardDto;
     }
+    // 3-2. 개별글 출력시 조회수 증가
+    public void boardViewIncrease(int bno){
+        try {
+            String sql = "update board set bview = bview+1 where bno ="+bno;
+            ps= conn.prepareStatement(sql);
+            ps.executeUpdate();
+
+        }catch (Exception e){System.out.println("e = " + e);}
+    }
+
 
     // 4. 글 수정 처리         put    /board/update.do       DTO
 
