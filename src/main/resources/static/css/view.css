@@ -1,0 +1,37 @@
+.btitle{font-size: 40px; font-weight: bold;}
+.bcontent{margin: 100px 100px;}
+
+
+/* 작성자 자리 */
+.boardViewBox > div:nth-child(2){
+    margin: 0 40px;
+}
+/* 카테고리 조회수 자리 */
+.boardViewBox > div:nth-child(3){
+    display: flex; justify-content: space-between;
+    margin: 0 40px 10px;
+}
+/* 내용자리 */
+.boardViewBox > div:nth-child(4){
+    min-height: 500px;
+}
+/* 수정일 */
+.boardViewBox > div:nth-child(5){
+    display: flex;justify-content: end;
+}
+/* 버튼 자리 */
+.btnBox{
+    display: flex;
+    justify-content: end;
+    margin: 0 10px;
+}
+.btnBox>button{
+    border: none;
+    border-radius: 15px;
+    background-color: #198754;
+    color: white;
+    width: 80px;
+}
+.btnBox>button:hover{
+    background-color: #105837;
+}
