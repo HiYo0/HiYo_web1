@@ -44,6 +44,7 @@ function onView(){
                         if(response2 == result.mid){ // 현재 로그인한 ID와 작성자가 같으면 버튼출력
                             let btnHTML = `<button type="button" onclick="onDelete()">삭제</button>`;
                             btnHTML += `<button type="button" onclick="location.href='/board/update?bno=${result.bno}'">수정</button>`;
+                            btnHTML += `<button type="button" onclick="location.href='/board/'"> 목록보기 </button>`;
                             document.querySelector('.btnBox').innerHTML = btnHTML;
                         }
                     }
