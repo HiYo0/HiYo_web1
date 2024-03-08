@@ -3,10 +3,12 @@ package hiyoweb.model.dao;
 import hiyoweb.model.dto.BoardDto;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Component
 public class BoardDao extends Dao {
@@ -140,7 +142,97 @@ public class BoardDao extends Dao {
 
 
     // 4. 글 수정 처리         put    /board/update.do       DTO
+    public boolean doUpdateBoard( BoardDto boardDto ){
+        Date date =new Date(); // 현재 시간
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+        System.out.println("BoardDao.doUpdateBoard");
+        try {
+            String sql = "update board set btitle = ?,bcontent = ?,bcno=?,bfile=?,bdate=? where bno = "+boardDto.getBno();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1,boardDto.getBtitle());
+            ps.setString(2, boardDto.getBcontent());
+            ps.setLong(3,boardDto.getBcno());
+            ps.setString(4,boardDto.getBfile());
+            ps.setString(5,dateFormat.format(date)); // 현재시간
+            int count = ps.executeUpdate();
+            if (count ==1)return true;
+
+        }catch (Exception e){System.out.println("e = " + e);}
+
+        return false;
+    }
     // 5. 글 삭제 처리       delete   /board/delete.do       게시물번호
+    public boolean doDeleteBoard(int bno) {
+        System.out.println("BoardDao.doDelete");
+        try {
+            String sql = "delete from board where bno = "+bno;
+            ps = conn.prepareStatement(sql);
+            ps.executeUpdate();
+            return true;
+
+        }catch (Exception e){
+            System.out.println("e = " + e);
+        }
+        return false;
+    }
+
+    // 6. 게시물 작성자 인증
+    public boolean boardWriterAuth( long bno , String mid){
+        try {
+            String sql = "select * from board b inner join member m on b.mno = m.no where b.bno = ? and m.id = ?";
+            ps =conn.prepareStatement(sql);
+            ps.setLong(1,bno);
+            ps.setString(2,mid);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                return true;
+            }
+        }catch (Exception e){
+            System.out.println("e = " + e);
+        }
+        return false;
+    }
+    // 7. 댓글 작성 ( brcontent , brindex , mno , bno )
+    public boolean postReplyWrite( Map<String , String > map ){
+        System.out.println("BoardDao.postReplyWrite");
+        try {
+            String sql = "insert into breply (brcontent,brindex,mno,bno)" +
+                    " values (?,?,?,?)";
+            ps=conn.prepareStatement(sql);
+            ps.setString(1,map.get("brcontent"));
+            ps.setString(2,map.get("brindex"));
+            ps.setString(3,map.get("mno"));
+            ps.setString(4,map.get("bno"));
+            int count = ps.executeUpdate();
+            if(count ==1){return true;}
+        }catch (Exception e){System.out.println("e = " + e);}
+        return false;
+    }
+    // 8. 댓글 출력 ( brno , brcontent ,brdate , brindex , mno ) , 매개변수 : bno
+    public List<Map<String ,String>> getReplyDo( int bno ){
+        System.out.println("BoardDao.getReplyDo");
+        List<Map<String ,String >> list = new ArrayList<>();
+        try {
+            // 상위댓글 먼저 출력
+            String sql = "select * from breply where brindex = 0 and bno="+bno;
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()){
+                // map vs dto
+                Map<String , String > map = new HashMap<>();
+                map.put("brno",rs.getString("brno"));
+                map.put("brcontent",rs.getString("brcontent"));
+                map.put("brdate",rs.getString("brdate"));
+                map.put("mno",rs.getString("mno"));
+
+                list.add(map);
+                //
+            }
+            return list;
+        }catch (Exception e){System.out.println("e = " + e);}
+
+        return list;
+    }
 
 }//class end

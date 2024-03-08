@@ -6,10 +6,12 @@ import hiyoweb.model.dto.BoardPageDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BoardService {
@@ -97,7 +99,73 @@ public class BoardService {
     }
 
     // 4. 글 수정 처리         put    /board/update.do       DTO
+    public boolean doUpdateBoard( BoardDto boardDto ){
+        System.out.println("BoardService.doUpdate");
+
+        // 1. 기존 첨부파일명 구하고
+        String bfile = boardDao.doGetBoardView((int) boardDto.getBno()).getBfile();
+
+        // - 새로운 첨부파일이 있다. 없다.
+        if(!boardDto.getUploadfile().isEmpty()){ // 수정시 새로운 첨부파일이 있으면
+
+            // 새로운 첨부파일을 업로드 하고 기존 첨부파일 삭제
+            String fileName = fileService.fileUpload(boardDto.getUploadfile());
+            if(fileName != null){   // 업로드 성공
+                boardDto.setBfile(fileName); // 새로운 첨부파일의 이름 dto 대입
+                // 기존 첨부파일 삭제.
+                    // 1. 위에씀 bfile
+                    // 2. 기존 첨부파일 삭제
+                fileService.filerDelete(bfile);
+            }else {return false;} // 업로드 실패
+        }else { // 기존파일이 없다면
+            // 업로드 할 필요 없다.
+            // 기존 첨부파일명을 그대로 대입.
+            boardDto.setBfile((bfile)); // 새로운 첨부파일이 없으면 기존 첨부파일명을 대입
+        }
+        return boardDao.doUpdateBoard(boardDto);
+    }
 
     // 5. 글 삭제 처리       delete   /board/delete.do       게시물번호
+    public boolean doDeleteBoard(int bno){
+        System.out.println("BoardService.doDelete");
+
+        // 게시판 정보 호출
+            // - 레코드 삭제 하기전에 삭제할 첨부파일명을 임시로 꺼내둔다
+        String bfile = boardDao.doGetBoardView(bno).getBfile();
+
+        // 1. DAO 처리
+        boolean result = boardDao.doDeleteBoard(bno);
+
+        // 2. DAO 처리 성공시 첨부파일도 삭제
+        if(result){
+            System.out.println("bfile = " + bfile);
+            if(bfile !=null) { // 기존에 첨부파일이 있었으면
+                fileService.filerDelete(bfile); // 미리 꺼내둔 삭제할 파일명 대입해서 삭제.
+            }
+        }
+        return result;
+    }
+
+    // 6. 게시물 작성자 인증
+    public boolean boardWriterAuth( long bno , String mid){
+        System.out.println("BoardService.boardWriterAuth");
+
+        return boardDao.boardWriterAuth(bno,mid);
+    }
+
+    // 7. 댓글 작성 ( brcontent , brindex , mno , bno )
+    public boolean postReplyWrite( Map<String , String > map ){
+        System.out.println("BoardService.postReplyWrite");
+
+        return boardDao.postReplyWrite(map);
+    }
+    // 8. 댓글 출력 ( brno , brcontent ,brdate , brindex , mno ) , 매개변수 : bno
+    public List<Map<String ,String>> getReplyDo( int bno ){
+        System.out.println("BoardService.getReplyDo");
+
+        return boardDao.getReplyDo(bno);
+    }
+
+
 
 }//class end
