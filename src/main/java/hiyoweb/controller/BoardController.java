@@ -115,7 +115,7 @@ public class BoardController {//class start
         fileService.fileDownload( bfile );
     }
 
-    // 7. 댓글 작성 ( brcontent , brindex , mno , bno )
+    // 7. 댓글 작성 ( bno , brcontent , brindex[0: 상위 , 1~:하위] , mno )
     @PostMapping("/reply/write.do")
     @ResponseBody
                                 // @RequestParam 필수 ? 보내줄때 키 이름이 없어서
@@ -126,6 +126,7 @@ public class BoardController {//class start
         // 1. 현재 로그인된 세션 ( 톰캣서버(자바프로그램) 메모리(JVM) 저장소 )
         Object object = request.getSession().getAttribute("loginDto");
         if(object == null){return false;} // 세션없다(로그인 안했다)
+        System.out.println(object);
 
         // 2. 형변환
         String  mid = (String) object;
@@ -143,7 +144,7 @@ public class BoardController {//class start
     // 8. 댓글 출력 ( brno , brcontent ,brdate , brindex , mno ) , 매개변수 : bno
     @GetMapping("/reply/do")
     @ResponseBody
-    public List<Map<String ,String>> getReplyDo( int bno ){
+    public List<Map<String ,Object>> getReplyDo( int bno ){
         System.out.println("BoardController.getReplyDo");
 
         return boardService.getReplyDo(bno);

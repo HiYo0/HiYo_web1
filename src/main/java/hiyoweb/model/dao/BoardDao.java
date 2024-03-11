@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -210,25 +211,45 @@ public class BoardDao extends Dao {
         return false;
     }
     // 8. 댓글 출력 ( brno , brcontent ,brdate , brindex , mno ) , 매개변수 : bno
-    public List<Map<String ,String>> getReplyDo( int bno ){
+    public List<Map<String ,Object>> getReplyDo( int bno ){
         System.out.println("BoardDao.getReplyDo");
-        List<Map<String ,String >> list = new ArrayList<>();
+        List<Map<String ,Object >> list = new ArrayList<>(); // 상위댓글 리스트
         try {
-            // 상위댓글 먼저 출력
+            // 상위댓글 먼저 출력       brindex = 0 : 상위댓글
             String sql = "select * from breply where brindex = 0 and bno="+bno;
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()){
+                // 상위 댓글 하나씩 객체화 하는 곳 =========================//
                 // map vs dto
-                Map<String , String > map = new HashMap<>();
+                Map<String , Object > map = new HashMap<>();
                 map.put("brno",rs.getString("brno"));
                 map.put("brcontent",rs.getString("brcontent"));
                 map.put("brdate",rs.getString("brdate"));
                 map.put("mno",rs.getString("mno"));
-
+                    // 해당 상위댓글의 하위댓글도 호출하기 =========================//
+                String  subSql2 = "select * from breply where brindex = ? and bno="+bno;
+                ps= conn.prepareStatement(subSql2);
+                ps.setInt(1,Integer.parseInt(rs.getString("brno"))); // index 아니고 brno임
+                    // (int) vs Integer.parseInt()
+                    // ******* rs 사용하면 안되는 이유 : 현재 상위댓글출력시 rs 사용중(while(rs.next)에서) 이므로
+                ResultSet rs2 = ps.executeQuery();
+                List<Map<String,Object>> subList = new ArrayList<>(); // 하위댓글 리스트
+                while (rs2.next()) {
+                    Map<String, Object> subMap = new HashMap<>(); // 댓글답변
+                    subMap.put("brno", rs2.getString("brno"));
+                    subMap.put("brcontent", rs2.getString("brcontent"));
+                    subMap.put("brdate", rs2.getString("brdate"));
+                    subMap.put("mno", rs2.getString("mno"));
+                    subList.add(subMap);
+                }
+                    // 해당 상위댓글의 하위댓글도 호출하기 END =========================//
+                map.put("subReply",subList); // 하위리스트 추가
                 list.add(map);
+                // 상위 댓글 하나씩 객체화 하는 곳 END =========================//
                 //
             }
+            System.out.println("테스트용"+list);
             return list;
         }catch (Exception e){System.out.println("e = " + e);}
 

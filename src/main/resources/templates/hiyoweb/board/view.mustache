@@ -21,6 +21,19 @@
             <!--        <button type="button" onclick="onDelete()">삭제</button>-->
             <!--        <button type="button" onclick="location.href='/board/update?bno='">수정</button>-->
         </div>
+        <div class="replyBox">
+            <div>
+                <textarea class="brcontent0" name="" id=""></textarea>
+                <button onclick="onReplyWrite(0)" type="button">댓글작성</button>
+            </div>
+            <div class="replyListBox">
+                {{! <div>
+                    <span>${reply.brcontent}</span>
+                    <span>${reply.mno}</span>
+                    <span>${reply.brdate}</span>
+                </div> }}
+            </div>
+        </div>
     </div>
 
 
