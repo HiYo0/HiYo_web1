@@ -611,3 +611,30 @@
 2024-03-11T15:28:23.515+09:00  INFO 8780 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 804 ms
 2024-03-11T15:28:24.191+09:00  INFO 8780 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 80 (http) with context path ''
 2024-03-11T15:28:24.198+09:00  INFO 8780 --- [main] hiyoweb.AppStart                         : Started AppStart in 1.882 seconds (process running for 2.168)
+2024-03-11T16:22:51.682+09:00  INFO 4804 --- [main] hiyoweb.AppStart                         : Starting AppStart using Java 17.0.9 with PID 4804 (C:\Users\504\Desktop\HiYo_web1\build\classes\java\main started by 504 in C:\Users\504\Desktop\HiYo_web1)
+2024-03-11T16:22:51.684+09:00  INFO 4804 --- [main] hiyoweb.AppStart                         : No active profile set, falling back to 1 default profile: "default"
+2024-03-11T16:22:52.500+09:00  INFO 4804 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 80 (http)
+2024-03-11T16:22:52.510+09:00  INFO 4804 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-03-11T16:22:52.511+09:00  INFO 4804 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.18]
+2024-03-11T16:22:52.564+09:00  INFO 4804 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-03-11T16:22:52.564+09:00  INFO 4804 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 842 ms
+2024-03-11T16:22:53.168+09:00  INFO 4804 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 80 (http) with context path ''
+2024-03-11T16:22:53.176+09:00  INFO 4804 --- [main] hiyoweb.AppStart                         : Started AppStart in 1.877 seconds (process running for 2.156)
+2024-03-11T17:33:19.291+09:00  INFO 1284 --- [main] hiyoweb.AppStart                         : Starting AppStart using Java 17.0.9 with PID 1284 (C:\Users\504\Desktop\HiYo_web1\build\classes\java\main started by 504 in C:\Users\504\Desktop\HiYo_web1)
+2024-03-11T17:33:19.294+09:00  INFO 1284 --- [main] hiyoweb.AppStart                         : No active profile set, falling back to 1 default profile: "default"
+2024-03-11T17:33:20.149+09:00  INFO 1284 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 80 (http)
+2024-03-11T17:33:20.159+09:00  INFO 1284 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-03-11T17:33:20.160+09:00  INFO 1284 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.18]
+2024-03-11T17:33:20.214+09:00  INFO 1284 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-03-11T17:33:20.214+09:00  INFO 1284 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 881 ms
+2024-03-11T17:33:20.873+09:00  INFO 1284 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 80 (http) with context path ''
+2024-03-11T17:33:20.882+09:00  INFO 1284 --- [main] hiyoweb.AppStart                         : Started AppStart in 1.982 seconds (process running for 2.268)
+2024-03-11T17:33:59.271+09:00  INFO 3176 --- [main] hiyoweb.AppStart                         : Starting AppStart using Java 17.0.9 with PID 3176 (C:\Users\504\Desktop\HiYo_web1\build\classes\java\main started by 504 in C:\Users\504\Desktop\HiYo_web1)
+2024-03-11T17:33:59.273+09:00  INFO 3176 --- [main] hiyoweb.AppStart                         : No active profile set, falling back to 1 default profile: "default"
+2024-03-11T17:34:00.111+09:00  INFO 3176 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 80 (http)
+2024-03-11T17:34:00.120+09:00  INFO 3176 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-03-11T17:34:00.121+09:00  INFO 3176 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.18]
+2024-03-11T17:34:00.179+09:00  INFO 3176 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-03-11T17:34:00.180+09:00  INFO 3176 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 857 ms
+2024-03-11T17:34:00.830+09:00  INFO 3176 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 80 (http) with context path ''
+2024-03-11T17:34:00.837+09:00  INFO 3176 --- [main] hiyoweb.AppStart                         : Started AppStart in 1.961 seconds (process running for 2.225)
