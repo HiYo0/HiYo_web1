@@ -38,7 +38,7 @@ public class FileService {//class start
         String filename = uuid+"_"+multipartFile.getOriginalFilename().replaceAll("_","-");
 
         // 1. 첨부파일 업로드 하기. [ 업로드란 : 클라이언트의 바이트(대용량/파일)을 복사해서 서버로 ]
-        // 1. 첨부파일을 저장할 경로
+            // 1. 첨부파일을 저장할 경로
         // File 클래스 : 파일 관련된 메소드 제공.
         // new File( 파일경로 ) -- 저장시킬 경로 + 저장시킬 이름으로 지정함
         File file = new File(uploadPath + filename);
