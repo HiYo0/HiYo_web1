@@ -74,7 +74,7 @@ function onDelete(){
 // 3. 게시물 수정 함수
 function onUpdate(){
     $.ajax({
-            url : "/board//update.do",
+            url : "/board/update.do",
             method : "put",
             data : {'bno':bno}, // URL 주소에서 따와서 씀
             success : function(response){

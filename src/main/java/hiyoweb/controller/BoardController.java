@@ -85,7 +85,7 @@ public class BoardController {//class start
     }
 
     // 5. 글 삭제 처리       delete   /board/delete.do       게시물번호
-    @DeleteMapping("delete.do")
+    @DeleteMapping("/delete.do")
     @ResponseBody
     public boolean doDeleteBoard(int bno){
         System.out.println("BoardController.doDelete");
